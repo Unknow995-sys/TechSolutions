@@ -164,7 +164,7 @@ document.getElementById('login-form-element').addEventListener('submit', functio
 document.querySelectorAll('.sidebar-nav .nav-link').forEach(link => { link.addEventListener('click', function(e) { e.preventDefault(); document.querySelectorAll('.sidebar-nav .nav-link, .dashboard-section').forEach(el => el.classList.remove('active')); this.classList.add('active'); document.getElementById(this.getAttribute('data-target')).classList.add('active'); }); });
 document.getElementById('logout-button').addEventListener('click', () => { document.getElementById('login-form-element').reset(); showPage('page-login'); });
 
-// --- LÓGICA DE MODALES (CRUD Y CONTACTO) ---
+// MODALES (CRUD Y CONTACTO)
 const crudModal = document.getElementById('crud-modal');
 const contactModal = document.getElementById('contact-modal');
 
@@ -190,7 +190,7 @@ function openModal(mode, type, element = null) {
             document.getElementById('service-price').value = editRowElement.cells[2].textContent;
         }
     }
-    // Aquí iría la lógica para 'user'
+    // para el user
 
     crudModal.style.display = 'flex';
     setTimeout(() => { crudModal.style.opacity = 1; crudModal.querySelector('.modal-content').style.transform = 'scale(1)'; }, 10);
@@ -229,7 +229,7 @@ function saveService() {
 }
 
 function saveUser() { 
-    // Lógica similar a saveService para usuarios
+    // saveService para usuarios
     console.log('Guardando usuario...');
     closeModal();
 }
@@ -241,7 +241,7 @@ function deleteRow(element) {
     }
 }
 
-// Lógica para el nuevo modal de contacto
+// modal de contacto
 function openContactModal(serviceName, servicePrice) {
     document.getElementById('contact-modal-title').textContent = serviceName;
     document.getElementById('contact-service-price').textContent = `Precio: ${servicePrice}`;
