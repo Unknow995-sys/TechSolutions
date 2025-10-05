@@ -1,0 +1,18 @@
+@startuml
+left to right direction
+actor Usuario
+actor Administrador
+
+rectangle "TechSolutions" {
+  Usuario --> (Ver Home)
+  Usuario --> (Ver Servicios)
+  Usuario --> (Solicitar Servicio)
+  Usuario --> (Registrarse)
+  Usuario --> (Iniciar Sesión)
+
+  Administrador --> (Iniciar Sesión)
+  Administrador --> (Gestionar Servicios)
+  Administrador --> (Gestionar Usuarios)
+  Administrador --> (Cerrar Sesión)
+}
+@enduml

@@ -1,0 +1,13 @@
+@startuml
+package "TechSolutions index.html" {
+  [SplashScreen] -down-> [Navbar]
+  [Navbar] -down-> [Home]
+  [Navbar] -down-> [Servicios]
+  [Navbar] -down-> [Login]
+  [Navbar] -down-> [Register]
+  [Navbar] -down-> [Dashboard]
+  [Dashboard] -down-> [CRUDModal]
+  [Servicios] -down-> [ContactModal]
+  [Home] -down-> [Footer]
+}
+@enduml
