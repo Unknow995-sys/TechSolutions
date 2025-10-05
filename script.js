@@ -114,7 +114,7 @@ document.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll('.animate-on-scroll, .service-card').forEach(el => observer.observe(el));
 });
 
-// NAVEGACIÓN Y CRUD 
+
 let editRowElement = null;
 const pageTransitionOverlay = document.getElementById('page-transition-overlay');
 let currentPage = null;
@@ -132,7 +132,7 @@ function showPage(pageId) {
             document.getElementById(currentPage).style.display = 'none';
         }
         
-        const displayStyle = ['page-login', 'page-dashboard'].includes(pageId) ? 'flex' : 'block';
+        const displayStyle = ['page-login','page-register', 'page-dashboard'].includes(pageId) ? 'flex' : 'block';
         targetPage.style.display = displayStyle;
         currentPage = pageId;
         window.scrollTo(0, 0);
@@ -164,7 +164,6 @@ document.getElementById('login-form-element').addEventListener('submit', functio
 document.querySelectorAll('.sidebar-nav .nav-link').forEach(link => { link.addEventListener('click', function(e) { e.preventDefault(); document.querySelectorAll('.sidebar-nav .nav-link, .dashboard-section').forEach(el => el.classList.remove('active')); this.classList.add('active'); document.getElementById(this.getAttribute('data-target')).classList.add('active'); }); });
 document.getElementById('logout-button').addEventListener('click', () => { document.getElementById('login-form-element').reset(); showPage('page-login'); });
 
-// MODALES (CRUD Y CONTACTO)
 const crudModal = document.getElementById('crud-modal');
 const contactModal = document.getElementById('contact-modal');
 
@@ -190,7 +189,6 @@ function openModal(mode, type, element = null) {
             document.getElementById('service-price').value = editRowElement.cells[2].textContent;
         }
     }
-    // para el user
 
     crudModal.style.display = 'flex';
     setTimeout(() => { crudModal.style.opacity = 1; crudModal.querySelector('.modal-content').style.transform = 'scale(1)'; }, 10);
@@ -210,7 +208,7 @@ function saveService() {
     if (editRowElement) { // Modo Editar
         editRowElement.cells[1].textContent = name;
         editRowElement.cells[2].textContent = price;
-    } else { // Modo Agregar
+    } else { 
         const tableBody = document.getElementById('services-table-body');
         const newId = parseInt(tableBody.dataset.nextId, 10);
         const newRow = tableBody.insertRow();
@@ -229,7 +227,6 @@ function saveService() {
 }
 
 function saveUser() { 
-    // saveService para usuarios
     console.log('Guardando usuario...');
     closeModal();
 }
@@ -241,7 +238,7 @@ function deleteRow(element) {
     }
 }
 
-// modal de contacto
+
 function openContactModal(serviceName, servicePrice) {
     document.getElementById('contact-modal-title').textContent = serviceName;
     document.getElementById('contact-service-price').textContent = `Precio: ${servicePrice}`;
@@ -274,4 +271,90 @@ function submitContactForm() {
     document.getElementById('contact-modal-footer').style.display = 'none';
 
     setTimeout(closeContactModal, 2500);
+}
+
+
+document.getElementById('login-form-element').addEventListener('submit', async (e) => {
+  e.preventDefault();
+
+  const username = document.getElementById('username').value.trim();
+  const password = document.getElementById('password').value.trim();
+  const errorMsg = document.getElementById('login-error');
+
+  try {
+    const respuesta = await fetch('/usuarios');
+    const usuarios = await respuesta.json();
+
+    const user = usuarios.find(u => u.usuario === username && u.password === password);
+
+    if (user) {
+        
+      if (user.rol === 'admin') {
+        alert(`Bienvenido administrador, ${username}`);
+        showPage('page-dashboard'); 
+      } else {
+        alert(`Bienvenido, ${username}`);
+        showPage('page-servicios'); 
+      }
+    } else {
+        alert(`Credenciales inválidas. Intenta de nuevo.`);
+      errorMsg.style.display = 'block';
+    }
+
+  } catch (error) {
+    console.error('Error al leer usuarios.json:', error);
+    alert('Error al conectar con el servidor.');
+  }
+});
+
+showPage
+document.getElementById('register-form-element').addEventListener('submit', async (e) => {
+  e.preventDefault();
+
+  const newUsername = document.getElementById('new-username').value.trim();
+  const newPassword = document.getElementById('new-password').value.trim();
+
+  if (!newUsername || !newPassword) {
+    alert('Por favor, completa todos los campos.');
+    return;
+  }
+
+  try {
+
+    const respuesta = await fetch('/usuarios');
+    const usuarios = await respuesta.json();
+
+    const existe = usuarios.some(u => u.usuario === newUsername);
+    if (existe) {
+      alert('El usuario ya existe. Intenta con otro nombre.');
+      return;
+    }
+
+
+    const nuevoUsuario = { usuario: newUsername, password: newPassword };
+
+
+    const registro = await fetch('/usuarios', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(nuevoUsuario)
+    });
+
+    if (registro.ok) {
+      alert('Registro exitoso 🎉 ¡Bienvenido a TechSolutions!');
+      showPage('page-home'); // 👈 Ahora va a la vista cliente
+    } else {
+      alert('Error al registrar usuario. Intenta más tarde.');
+    }
+
+  } catch (error) {
+    console.error('Error al guardar el usuario:', error);
+    alert('Error al registrar usuario. Intenta más tarde.');
+  }
+});
+
+// después de showPage('page-servicios') o 'page-dashboard'
+const welcomeUser = document.getElementById('welcomeUser');
+if (welcomeUser) {
+  welcomeUser.textContent = `Bienvenido, ${username}`;
 }

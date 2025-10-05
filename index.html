@@ -9,7 +9,6 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-    // llamamos las imagenes
     <link rel="preload" href="img/Desarrollo_Web.png" as="image">
     <link rel="preload" href="img/app_mobil.jpg" as="image">
     <link rel="preload" href="img/consultoria_it.jpeg" as="image">
@@ -58,7 +57,7 @@
     </div>
     
     <div id="page-servicios" class="page">
-        <nav class="navbar navbar-visible"><div class="container"><a onclick="showPage('page-home')" class="logo">TechSolutions</a><ul class="nav-links"><li><a onclick="showPage('page-home')">Inicio</a></li><li><a onclick="showPage('page-servicios')">Servicios</a></li><li><a onclick="showPage('page-login')">Admin Login</a></li></ul></div></nav>
+        <nav class="navbar navbar-visible"><div class="container"><a onclick="showPage('page-home')" class="logo">TechSolutions</a><ul class="nav-links"><li><a onclick="showPage('page-home')">Cerrar sesión </a></li><li><a onclick="showPage('page-servicios')">Servicios</a></li><li><span id="welcomeUser">Bienvenido</span></li></ul></div></nav>
         <main class="page-content"><div class="container">
             <h2>Nuestros Servicios</h2>
             <p>Ofrecemos un abanico de soluciones diseñadas para impulsar tu negocio en el mundo digital.</p>
@@ -72,9 +71,56 @@
         <footer class="footer"><p>&copy; 2025 TechSolutions. Todos los derechos reservados.</p></footer>
     </div>
 
-    <div id="page-login" class="page">
-        <div class="login-form"><h2>Panel de Administración</h2><p>Ingresa tus credenciales para continuar.</p><form id="login-form-element"><div class="form-group"><label for="username">Usuario:</label><input type="text" id="username" required></div><div class="form-group"><label for="password">Contraseña:</label><input type="password" id="password" required></div><button type="submit" class="button button-primary" style="width:100%;">Ingresar</button><p id="login-error">Usuario o contraseña incorrectos.</p></form></div>
-    </div>
+<div id="page-login" class="page" style="display: none;">
+  <div class="login-form">
+    <h2>Panel de Administración</h2>
+    <p>Ingresa tus credenciales para continuar.</p>
+
+    <form id="login-form-element">
+      <div class="form-group">
+        <label for="username">Usuario:</label>
+        <input type="text" id="username" required>
+      </div>
+      <div class="form-group">
+        <label for="password">Contraseña:</label>
+        <input type="password" id="password" required>
+      </div>
+      <button type="submit" class="button button-primary" style="width:100%;">Ingresar</button>
+      <p id="login-error"></p>
+    </form>
+
+    <p style="text-align:center; margin-top:15px;">
+      ¿No tienes cuenta? <a href="#" onclick="showPage('page-register')">Regístrate aquí</a>
+    </p>
+
+    <!-- 🔙 BOTÓN VOLVER -->
+    <button class="back-btn" onclick="showPage('page-home')">Volver atrás</button>
+  </div>
+</div>
+
+
+
+
+<section id="page-register" class="page-auth" style="display: none;">
+  <div class="auth-container">
+    <h2>Crear Cuenta</h2>
+    <p>Regístrate para acceder al panel de administración.</p>
+
+    <form id="registerForm">
+      <label for="usuario">Usuario:</label>
+      <input type="text" id="usuario" required>
+
+      <label for="password">Contraseña:</label>
+      <input type="password" id="password" required>
+
+      <button type="submit">Registrar</button>
+    </form>
+
+    <p>¿Ya tienes cuenta? <a href="#" onclick="showPage('page-login')">Inicia sesión</a></p>
+    <button class="back-btn" onclick="showPage('page-home')">Volver atrás</button>
+  </div>
+</section>
+
 
     <div id="page-dashboard" class="page">
         <aside class="sidebar">
@@ -113,7 +159,6 @@
         </main>
     </div>
 
-    // CRUD para el admin
     <div class="modal-overlay" id="crud-modal">
         <div class="modal-content">
             <div class="modal-header"><h3 id="modal-title">Título del Modal</h3><button class="close-modal" onclick="closeModal()">&times;</button></div>
@@ -156,5 +201,8 @@
     </div>
 
     <script src="script.js" defer></script>
-</body>
+
+
+    
+  </body>
 </html>
