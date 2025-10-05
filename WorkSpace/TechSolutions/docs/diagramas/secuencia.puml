@@ -1,0 +1,12 @@
+@startuml
+actor Usuario
+participant "index.html" as HTML
+participant "script.js" as JS
+participant "server.js" as Server
+
+Usuario -> HTML : Ingresa credenciales
+HTML -> JS : Submit formulario
+JS -> Server : POST /login
+Server --> JS : Respuesta (éxito/error)
+JS --> HTML : Actualiza UI
+@enduml
