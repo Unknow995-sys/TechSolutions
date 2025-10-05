@@ -1,103 +1,110 @@
-1. **Arquitectura Frontend**
-*1.1 Componentes Principales*
+# 1. Arquitectura Frontend
 
-  Splash Screen
+## 1.1 Componentes Principales
 
-    1- Canvas para animaciones de partículas.
-    2- Efecto de cursor personalizado.
-    3- Título animado.
-    4- Tiempo de carga controlado y animación de transición a la página principal.
+### Splash Screen
+- Canvas para animaciones de partículas.  
+- Efecto de cursor personalizado.  
+- Título animado.  
+- Tiempo de carga controlado y animación de transición a la página principal.  
 
-  Sistema de Navegación
+### Sistema de Navegación
+- SPA (Single Page Application) con historial de navegación.  
+- Transiciones animadas entre páginas.  
+- Menú responsive (desktop y mobile).  
+- Estado persistente de pestañas activas.  
 
-    1- SPA (Single Page Application) con historial de navegación.
-    2- Transiciones animadas entre páginas.
-    3- Menú responsive (desktop y mobile).
-    4- Estado persistente de pestañas activas.
+### Gestión de Estado
+- Uso de LocalStorage para mantener sesión de usuario.  
+- Caché de datos temporales para optimizar carga.  
+- Estados de UI: modales, loaders, notificaciones.  
+- Patrón recomendado: Flux / Redux / Context API / Zustand.  
 
-  Gestión de Estado
+### Páginas Principales
+- **Home**: Información general y presentación de servicios.  
+- **Servicios**: Listado, filtros, búsqueda.  
+- **Login/Register**: Autenticación con validación.  
+- **Dashboard (Admin)**:  
+  - CRUD de Servicios.  
+  - Gestión de Usuarios.  
+  - Estadísticas y reportes en tiempo real.  
 
-    1- Uso de LocalStorage para mantener sesión de usuario.
-    2- Caché de datos temporales para optimizar carga.
-    3- stados de UI: modales, loaders, notificaciones.
-    4- Patrón recomendado: Flux / Redux / Context API / Zustand.
+---
 
-  Páginas Principales
+## 1.2 Gestión de Rutas
+- Uso de React Router / Vue Router para:  
+  - Rutas públicas: Home, Servicios, Login/Register.  
+  - Rutas privadas: Dashboard, CRUD.  
+- Redirección automática según autenticación.  
+- Manejo de roles (ejemplo: usuario vs. administrador).  
 
-    1- Home: Información general y presentación de servicios.
-    2- Servicios: Listado, filtros, búsqueda.
-    3- Login/Register: Autenticación con validación.
-    4- Dashboard (Admin):
-      4.1- CRUD de Servicios.
-      4.2- Gestión de Usuarios.
-      4.3- Estadísticas y reportes en tiempo real. 
+---
 
-*1.2 Gestión de Rutas* 
-  1- Uso de React Router / Vue Router para:
-    1.1- Rutas públicas: Home, Servicios, Login/Register.
-    1.2- Rutas privadas: Dashboard, CRUD.
-  2- Redirección automática según autenticación.
-  3- Manejo de roles (ejemplo: usuario vs. administrador).
+## 1.3 Seguridad en Frontend
+- Validación de formularios antes de enviar al backend.  
+- Tokens almacenados en LocalStorage o cookies seguras (HttpOnly + Secure).  
+- Autorización de rutas privadas según roles.  
+- Sanitización de entradas para evitar XSS / Inyección.  
+- Prevención de CSRF mediante tokens o cabeceras seguras.  
 
-*1.3 Seguridad en Frontend*
+---
 
-  1- Validación de formularios antes de enviar al backend.
-  2- Tokens almacenados en LocalStorage o cookies seguras (HttpOnly + Secure).
-  3- Autorización de rutas privadas según roles.
-  4- Sanitización de entradas para evitar XSS / Inyección.
-  5- Prevención de CSRF mediante tokens o cabeceras seguras.
+## 1.4 Dependencias y Tecnologías
 
+| Categoría       | Tecnologías / Librerías                           |
+|-----------------|--------------------------------------------------|
+| Frontend        | HTML5, CSS3, JavaScript ES6+, React/Vue           |
+| Animaciones     | Canvas API, GSAP, Animate.css                     |
+| Layouts         | Flexbox, CSS Grid                                 |
+| Estado          | Context API, Redux, Zustand                       |
+| Rutas           | React Router, Vue Router                          |
+| Pruebas         | Jest, React Testing Library, Cypress, Playwright  |
+| Estilos         | TailwindCSS, Styled Components                    |
+| Iconos / UI     | Heroicons, Material Icons, Shadcn UI              |
 
-*1.4 Dependencias y Tecnologías*
+---
 
-  1- Categoría	Tecnologías / Librerías
-  2- Frontend	HTML5, CSS3, JavaScript ES6+, React/Vue
-  3- Animaciones	Canvas API, GSAP, Animate.css
-  4- Layouts	Flexbox, CSS Grid
-  5- Estado	Context API, Redux, Zustand
-  6- Rutas	React Router, Vue Router
-  7- Pruebas	Jest, React Testing Library, Cypress, Playwright
-  8- Estilos	TailwindCSS / Styled Components
-  9- Iconos/UI	Heroicons, Material Icons, Shadcn UI 
+## 1.5 Convenciones de Código
+- CamelCase para archivos y variables.  
+- Componentes React como funciones puras.  
+- Variables descriptivas y consistentes.  
+- Comentarios en funciones críticas.  
+- Separación clara: componentes, servicios, utilidades.  
+- Uso de ESLint y Prettier para estandarización.  
 
-*1.5 Convenciones de Código*
+---
 
-  1- CamelCase para archivos y variables
-  2- Componentes React como funciones puras.
-  3- Variables descriptivas y consistentes.
-  4- Comentarios en funciones críticas.
-  5- Separación clara: componentes, servicios, utilidades.
-  6- Uso de ESLint y Prettier para estandarización.
+## 1.6 Accesibilidad (A11Y)
+- Uso de etiquetas semánticas en HTML.  
+- Compatibilidad con lectores de pantalla (atributos `aria-*`).  
+- Contrastes de color adecuados según WCAG 2.1.  
+- Navegación accesible mediante teclado.  
 
-  
-*1.6 Accesibilidad (A11Y)*
+---
 
-  1- Uso de etiquetas semánticas en HTML.
-  2- Compatibilidad con lectores de pantalla (atributos aria-*).
-  3- Contrastes de color adecuados según WCAG 2.1.
-  4- Navegación accesible mediante teclado.
+## 1.7 Rendimiento y Optimización
+- Code splitting y lazy loading para módulos grandes.  
+- Imágenes optimizadas (WebP, compresión).  
+- Minificación de CSS y JS.  
+- Uso de Service Workers para caché de recursos estáticos.  
+- Monitoreo de rendimiento con Lighthouse.  
 
+---
 
-*1.7 Rendimiento y Optimización*  
+## 1.8 Repositorio en GitHub
+- Estrategia de ramas: `main`, `develop`, `feature/*`, `bugfix/*`.  
+- Integración continua: GitHub Actions / GitLab CI.  
+- Deploy automatizado a Vercel / Netlify / AWS Amplify.  
 
-  1- Code splitting y lazy loading para módulos grandes.
-  2- Imágenes optimizadas (WebP, compresión).
-  3- Minificación de CSS y JS.
-  4- Uso de Service Workers para caché de recursos estáticos.
-  5- Monitoreo de rendimiento con Lighthouse.
+---
 
-  Control de Versiones y CI/CD
+## 1.9 Testing y QA
+- **Unitarias**: Validación de componentes con Jest.  
+- **Integración**: Flujo entre componentes (React Testing Library).  
+- **E2E**: Casos de usuario completos con Cypress o Playwright.  
+- **Cobertura mínima recomendada**: 80%.  
 
-*1.8 Repositorio en GitHub*
-  1- Estrategia de ramas: main, develop, feature/*, bugfix/*.
-  2- Integración continua: GitHub Actions / GitLab CI.
-  3- Deploy automatizado a Vercel / Netlify / AWS Amplify.
+---
 
-*1.9 Testing y Q*A
-
-  1- Unitarias: Validación de componentes con Jest.
-  2- Integración: Flujo entre componentes (React Testing Library).
-  3- E2E: Casos de usuario completos con Cypress o Playwright.
-  4- Cobertura mínima recomendada: 80%.
-
-  *1.10 Diagrama*
+## 1.10 Diagrama
+![Diagrama](img/diagrama.png)
